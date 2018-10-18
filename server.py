@@ -135,7 +135,7 @@ def home():
     query = 'SELECT first_name FROM users WHERE id = %(id)s;'
     data = {'id': session['user_id']}
     mysql = connectToMySQL('walldb')
-    user = mysql.query_db(query, data)
+    user = mysql.query_db(query, data)C
 
     # Get the list of users except the logged in user
     mysql = connectToMySQL('walldb')
