@@ -1,0 +1,8 @@
+SELECT COUNT(*) as count from messages where reciever_id = %(id)s
+countUsers
+
+SELECT COUNT(*) as count from messages where sender_id = %(id)s
+countMessages
+
+return countUsers = countUsers[0]['count']
+

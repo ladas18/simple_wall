@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+      crossorigin="anonymous">
+
+  <body>
+      <nav class="navbar navbar-dark bg-dark">
+          <a class="navbar-brand text-white">Welcome - {{ user['first_name']}}</a>
+          <a href="/logout" class="btn btn-primary">Logout</a>
+      </nav>
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                  {% if messages_data[0].messages %}
+                  <h6>{{countMessages}} Message(s) for you (Michael)</h6>
+                  {% for data in messages_data %}
+                  <div class="msg-box">
+                      <p>{{ data.sender_name }} said (3 hours ago):</p>
+                      <span>"{{ data.messages }}"</span>
+                      <a href="/delete/{{ data.message_id }}"><i class="fas fa-trash-alt text-danger"></i></a>
+                  </div>
+                  {% else %}
+                  <h6>You have no message</h6>
+                  {% endfor %}
+                  {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                  <h1>Send a messages</h1>
+                  <p>You have send 10 messages so far</p>
+                  {% for data in other_users %}
+                  <div class="msg-send">
+                      <p>{{ data.recipient_name }}</p>
+                      <form action="/send_message" method="POST">
+                          <input type="hidden" name="recipient_id" value="{{ data.recipient_id }}">
+                          <input type="text" class="form-group" name="message">
+                          <button class="btn-success" type="submit">Send</button>
+                      </form>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </body>
+
+</html>
